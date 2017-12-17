@@ -18,15 +18,13 @@ export default function (source, template, options={}) {
 		return placeholder;
 	}).split(placeholder);
 
-	let temp = source;
-
 	parts.reduce((curr, next) => {
-		let start = temp.indexOf(curr) + curr.length;
-		temp = temp.substring(start);                       //To avoid appearance of next part inside current
+		let start = source.indexOf(curr) + curr.length;
+		source = source.substring(start);                       //To avoid appearance of next part inside current
 
-		let finish = temp.indexOf(next) || temp.length;     //Handle template ending
-		let value = temp.slice(0, finish);
-		temp = temp.substring(finish);                      //Cleanup for the next iteration
+		let finish = source.indexOf(next) || source.length;     //Handle template ending
+		let value = source.slice(0, finish);
+		source = source.substring(finish);                      //Cleanup for the next iteration
 
 		result.push({
 			tag: tags.shift(),
